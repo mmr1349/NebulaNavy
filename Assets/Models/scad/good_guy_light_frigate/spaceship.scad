@@ -1,3 +1,7 @@
+//// MODULES ////
+
+use <airfoil.scad>
+
 //// VARIABLES ////
 function N() = 50;
 function pos_neg() = [1,-1];
@@ -57,16 +61,43 @@ function cargo_bay_z_offset() = -0.5;
 
 // FORWARD WINGS //
 
-function wing_x_offset() = 6;
+function forward_wing_x_offset() = 4;
 
-function wing_length() = 3;
+function forward_wing_length() = 3;
 
-function upper_leading_radius()=0.2;
-function upper_leading_scale() = 3;
-function upper_leading_z_offset()=[-upper_leading_radius(),upper_leading_radius()];
-function upper_leading_rear_cutout_offset()=[wing_length()/2,(-wing_length())/2];
+function forward_wing_upper_axis()=0.3;
+function forward_wing_lower_axis()=0.2;
 
-function lower_scale() = 4;
+// upper leading //
+function forward_upper_leading_scale() = 2;
+	//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
+	//function upper_leading_rear_cutout_offset()=[forward_wing_length()/2,(-forward_wing_length())/2];
+
+// lower //
+function forward_lower_scale() = 4;
+
+// upper trailing //
+function forward_upper_trailing_scale() = forward_lower_scale()*2-forward_upper_leading_scale();
+
+// REAR WINGS //
+
+function rear_wing_x_offset() = -3;
+
+function rear_wing_length() = 5;
+
+function rear_wing_upper_axis()=0.3;
+function rear_wing_lower_axis()=0.2;
+
+// upper leading //
+function rear_upper_leading_scale() = 3;
+	//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
+	//function upper_leading_rear_cutout_offset()=[rear_wing_length()/2,(-rear_wing_length())/2];
+
+// lower //
+function rear_lower_scale() = 6;
+
+// upper trailing //
+function rear_upper_trailing_scale() = rear_lower_scale()*2-rear_upper_leading_scale();
 
 //// GENERATION CODE ////
 
@@ -122,26 +153,26 @@ for (i = [0:1]){
 
 // FORWARD WINGS //
 
-rot_mat=[270,90];
-yoffo=[2,-2];
-for (i=[0:1]){
-	translate([wing_x_offset(),yoffo[i],0])rotate([rot_mat[i],0,0])union(){
-		// upper leading //
-		scale([upper_leading_scale(),1]){
-			difference(){
+	translate([forward_wing_x_offset(),-.5,0])
+	rotate([90,0,0])
+linear_extrude(height=forward_wing_length(), scale=.5)
+	airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
 
-				circle(r=upper_leading_radius(),$fn=N());
-				translate([0,pos_neg()[i]*upper_leading_radius()/2])square([upper_leading_radius()*2,upper_leading_radius()],center=true);
-				translate([-upper_leading_radius()/2,0])square([upper_leading_radius(),upper_leading_radius()*2],center=true);
-			}
-		}
-		scale([lower_scale(),1]){
-			translate([-(lower_scale()-upper_leading_scale())*upper_leading_radius(),0]){
-				difference(){
-					circle(r=upper_leading_radius(),$fn=N());
-					translate([0,-1*pos_neg()[i]*upper_leading_radius()/2])square([upper_leading_radius()*2,upper_leading_radius()],center=true);
-				}
-			}
-		}
-	}
-}
+	mirror([0,1,0])
+	translate([forward_wing_x_offset(),-.5,0])
+	rotate([90,0,0])
+linear_extrude(height=forward_wing_length(), scale=.5)
+	airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
+
+// REAR WINGS //
+
+	translate([rear_wing_x_offset(),-.5,0])
+	rotate([90,0,0])
+linear_extrude(height=rear_wing_length(), scale=.3)
+	airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());
+
+	mirror([0,1,0])
+	translate([rear_wing_x_offset(),-.5,0])
+	rotate([90,0,0])
+linear_extrude(height=rear_wing_length(), scale=.3)
+	airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());

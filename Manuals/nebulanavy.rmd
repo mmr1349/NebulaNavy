@@ -1,0 +1,86 @@
+---
+title: 'Nebula Navy'
+subtitle: 'Working Title'
+author:
+- 'Luke Bubar'
+- 'Marcus Richmond'
+output: pdf_document
+---
+
+# Lore
+
+## Introduction
+
+In the far reaches of mysterious and wild space, there is not peace for those do not fight to be peaceful.
+
+For thousands of generations, the Church has been God's gift to humanity. His bride, to lead them to his Kingdom.
+Despite the millennia of attack the Church has endured, no matter in memory seems as dire as the one it faces now.
+
+The Middle Nations, the cosmopolitan center of civilized space, has been the triumph of technological advancement and cultural achievement in many an eye.
+Only the most vigilant had eyes to see what it was becoming, but no action could be mustered in time.
+The Middle Nations had collapsed under the strain of generations of societal decay; not in an instant, but over the centuries past that most had been too blind to see.
+
+It's people are now the slaves in mind, body, and spirit\footnote{Think \emph{1984}, \emph{Brave New World}, and\emph{THX 1138} all rolled into one.} under the cruel and despotic Middle League\footnote{The ensignia for witch will be the like the CBS logo and the planet Saturn}.
+Once masqueraded as an egalitarian think-tank, it has revealed it's true colors as a satanic cult\footnote{Few outsiders know the evil mysteries behind how they conduct themselves.}.
+Bursting with power, and now, unity of it's citizens, The Middle League has begun expanding it's territories.
+
+The Outer Provinces, made up of the children of frontiersmen who left to settle the far reaches of the galaxy, carry on in the face of danger as they always had, believing themselves too small to be under the eye of such large nations.
+
+The Old Kingdoms... \footnote{I'm writing this later. Basically, it is the Old Kingdoms that declare war to defeat the Universalist threat and restore the Church and the fear of the Father, Son, and Holy Spirit throughout creation.}
+
+## Space
+
+* Hyperspace Lanes, but some non-euclidean.
+	- There is no apparent logic for where a lane will begin or end in traditional 3D space.
+	- This makes for interesting large-scale tactics and dynamics.
+* Some of the space maps will be inside nebulas with breathable air.
+* There exist many creatures that live in space. Anything from nebula-trees to space-whales
+	- Dragons exist as both good creations of GOD, and evil perversions by Satan.
+
+## Weapons
+
+### Ranged Small Arms
+
+#### Bullet-based
+
+* Bullet-based weapons are highly reliable. They behave much like firearms today except for recoil management systems are far more advanced; leading to easier firing of more powerful cartridges.
+* Recoil is still relatively high compared to other weapons available at the time.
+	- Different types of rounds allow different effectiveness levels against different targets
+		+ Incendiary (highly effective against unarmored)
+		+ HM (High Mass, moderately effective against energy shields)
+		+ HE (High Explosive, moderately effective against armor)
+		+ FMJ (Most Common, not particularly effective against any single armor type).
+
+#### Laser-based
+
+* Laser-based weapons are the most accurate weapons platform, but drains a high amount of power.
+* Portable laser blasters require constant recharging and replacing of power units.
+* Lasers see most use in ship-mounted or stationary roles.
+* Lasers have no recoil.
+* Lasers perform exceptionally against all types of armor.
+* Lasers either do or do not have the power to break through energy shields. They can not wear down the shields themselves.
+
+#### Plasma-based
+
+* Short Range
+* Very High Effectiveness against powered shields and unarmored targets (lights them on fire).
+* Very High Ammo Capacity and Fire Rate.
+
+#### Plasma-engulfed Projectiles (PEP guns)
+
+* Moderate Range
+* Highly Effective against all armor types
+* Only available in large weapon platforms, due to the need to fire the projectile and generate the plasma.
+
+### Armor and Shields
+
+Few soldiers march into battle without being covered head to toe with protection.
+
+# Gameplay
+
+## Recoil
+
+A melding of Battlefront Classic and Insurgency.
+
+When not ADS, recoil cannot be affected by mouse movement, and will randomly place in a cone around the reticle.
+When in ADS, the shot will always go in the center of the reticle (or in an even tighter cone for some weapons with inherent innacuracy), but the reticle moves.
