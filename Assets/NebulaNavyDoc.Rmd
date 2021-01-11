@@ -1,0 +1,50 @@
+---
+title: "Nebula Navy"
+output: pdf_document
+---
+
+#Nebula Navy Network Overview
+
+-TCP
+  -Slow
+  -Reliable
+  -Used for connecting, spawning, etc
+-UDP
+  -FAST
+  -Unreliable
+  -Used for movement input pretty much everything
+
+-Terminology
+  -Command is from client to server
+  -RPC(remote procedure call) is from server to all clients
+  -DPC(directed procedure call) specific client
+  
+#Structure
+Allow clients to have autonomy but everything is checked by the server. We can
+move our player indepentantly but if the server detects a position in the wall
+we need to fix the clients position. 
+
+
+  
+```
+byte[] data
+bitDecoder(data)
+string[] stringData
+IP sender, Port, Time recieved
+UserName|:CONSTCOMMAND:ARGUMENTS:ARG:ARG:...|CMD:ARG:ARG:ARG|
+
+
+CMD:ARG:ARG:ARG|
+
+
+JoeShmoe|ShootCmd:3,2.5,-6:120,35.6,22|
+JoeShmoe
+
+switch()
+{
+ case ShootCmd:
+  ShootCmd(args);
+ case HealCmd:
+ 
+}
+```

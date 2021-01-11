@@ -1,0 +1,28 @@
+# Blender MTL File: '9_SetCreation_JawBone_18.blend'
+# Material Count: 2
+
+newmtl Canon-metal
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Canon-metal_Normal.png
+map_Ns D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Canon-metal_Roughness.png
+refl D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Canon-metal_Base_Color.png
+
+newmtl Paint
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Paint_Normal.png
+map_Ns D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Paint_Roughness.png
+refl D:\\ESTUDOS\\UDEMY\\Sci Fi Asset Creation - Blender_Substance Painter\\4-SubstancePainter\\Camo-set\\Paint_Metallic.png
