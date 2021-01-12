@@ -11,7 +11,7 @@ output: pdf_document
 
 ## Introduction
 
-In the far reaches of mysterious and wild space, there is not peace for those do not fight to be peaceful.
+In the far reaches of mysterious and wild space, there is not peace for those do not fight for it.
 
 For thousands of generations, the Church has been God's gift to humanity. His bride, to lead them to his Kingdom.
 Despite the millennia of attack the Church has endured, no matter in memory seems as dire as the one it faces now.
@@ -20,7 +20,7 @@ The Middle Nations, the cosmopolitan center of civilized space, has been the tri
 Only the most vigilant had eyes to see what it was becoming, but no action could be mustered in time.
 The Middle Nations had collapsed under the strain of generations of societal decay; not in an instant, but over the centuries past that most had been too blind to see.
 
-It's people are now the slaves in mind, body, and spirit\footnote{Think \emph{1984}, \emph{Brave New World}, and\emph{THX 1138} all rolled into one.} under the cruel and despotic Middle League\footnote{The ensignia for witch will be the like the CBS logo and the planet Saturn}.
+It's people are now the slaves in mind, body, and spirit\footnote{Protohumans?} under the cruel and despotic Middle League\footnote{The ensignia for witch will be the like the CBS logo and the planet Saturn}.
 Once masqueraded as an egalitarian think-tank, it has revealed it's true colors as a satanic cult\footnote{Few outsiders know the evil mysteries behind how they conduct themselves.}.
 Bursting with power, and now, unity of it's citizens, The Middle League has begun expanding it's territories.
 
@@ -35,7 +35,7 @@ The Old Kingdoms... \footnote{I'm writing this later. Basically, it is the Old K
 	- This makes for interesting large-scale tactics and dynamics.
 * Some of the space maps will be inside nebulas with breathable air.
 * There exist many creatures that live in space. Anything from nebula-trees to space-whales
-	- Dragons exist as both good creations of GOD, and evil perversions by Satan.
+	- Dragons and other mythological creatures exist as both good creations of GOD, and evil perversions by Satan.
 
 ## Weapons
 
@@ -62,7 +62,7 @@ The Old Kingdoms... \footnote{I'm writing this later. Basically, it is the Old K
 
 #### Plasma-based
 
-* Short Range
+* Shortest Range of all the weapon types, but some variants can still go in long-range combat
 * Very High Effectiveness against powered shields and unarmored targets (lights them on fire).
 * Very High Ammo Capacity and Fire Rate.
 
@@ -75,6 +75,7 @@ The Old Kingdoms... \footnote{I'm writing this later. Basically, it is the Old K
 ### Armor and Shields
 
 Few soldiers march into battle without being covered head to toe with protection.
+Due to the high effectiveness of armor, as well as the high-mobility provided from jet packs and vehicles, melee combat is important, especially in the ship corridors.
 
 # Gameplay
 
