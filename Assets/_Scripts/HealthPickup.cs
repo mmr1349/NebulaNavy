@@ -12,7 +12,7 @@ public class HealthPickup : NetworkBehaviour
 
     [ServerCallback]
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("COlliding with something");
+        Debug.Log("Colliding with something");
         Health hp = other.gameObject.GetComponent<Health>();
         if (hp) {
             Debug.Log("The something can now be healed");
