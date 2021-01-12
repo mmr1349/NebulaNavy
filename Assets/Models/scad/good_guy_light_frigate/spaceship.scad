@@ -16,6 +16,8 @@ bridge_radius = 0.7;
 bridge_forward = 4;
 bridge_vertical = .5;
 
+bridge_interior_scale = 0.95;
+
 // ENGINEERING BRIDGE //
 engineering_bridge_length = 2;
 engineering_bridge_radius = 0.7;
@@ -70,8 +72,8 @@ function forward_wing_lower_axis()=0.2;
 
 // upper leading //
 function forward_upper_leading_scale() = 2;
-	//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
-	//function upper_leading_rear_cutout_offset()=[forward_wing_length()/2,(-forward_wing_length())/2];
+//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
+//function upper_leading_rear_cutout_offset()=[forward_wing_length()/2,(-forward_wing_length())/2];
 
 // lower //
 function forward_lower_scale() = 4;
@@ -90,8 +92,8 @@ function rear_wing_lower_axis()=0.2;
 
 // upper leading //
 function rear_upper_leading_scale() = 3;
-	//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
-	//function upper_leading_rear_cutout_offset()=[rear_wing_length()/2,(-rear_wing_length())/2];
+//function upper_leading_z_offset()=[-wing_vertical_radius(),wing_vertical_radius()];
+//function upper_leading_rear_cutout_offset()=[rear_wing_length()/2,(-rear_wing_length())/2];
 
 // lower //
 function rear_lower_scale() = 6;
@@ -99,80 +101,96 @@ function rear_lower_scale() = 6;
 // upper trailing //
 function rear_upper_trailing_scale() = rear_lower_scale()*2-rear_upper_leading_scale();
 
+// DOOR //
+
 //// GENERATION CODE ////
 
-// HULL //
-scale([hull_length,hull_radius,hull_radius]) sphere(r=1.0,$fn=N());
-// BRIDGE //
-translate([bridge_forward,0,bridge_vertical]) scale([bridge_length,bridge_radius,bridge_radius]) sphere (r=1.0,$fn=N());
-// ENGINEERING BRIDGE //
-translate([engineering_bridge_forward,0,engineering_bridge_vertical]) scale([engineering_bridge_length,engineering_bridge_radius,engineering_bridge_radius]) sphere (r=1.0,$fn=N());
-// PRIMARY ENGINE //
-translate([primary_engine_x_offset,0,0]) rotate([0,90,0])
-	union() {
-		cylinder(h=primary_engine_length, r=primary_engine_radius, center=true, $fn=N());
-		difference() {
-			translate([0,0,primary_engine_cone_x_offset]) scale([primary_engine_radius,primary_engine_radius,1.5]) sphere(r=1.0,$fn=N());
-			translate([0,0,primary_engine_cone_x_offset-1]) cylinder (h=2,r=primary_engine_radius+.05,center=true,$fn=N());
-			translate([0,0,primary_engine_cone_x_offset]) scale([primary_engine_radius,primary_engine_radius,1.5]) sphere(r=0.9,$fn=N());
-		}
-	}
-// SECONDARY ENGINES //
-for (i = [0:num_secondary_engines-1]){
-	translate([secondary_engine_x_offset,sec_y[i],sec_z[i]]) rotate ([0,90,0])
-		union() {
-			cylinder(h=secondary_engine_length, r=secondary_engine_radius, center=true, $fn=N()/1.9);
-			translate([0,0,-secondary_engine_length/4]) cylinder(h=secondary_engine_length*.3, r=secondary_engine_radius*1.05, center=true, $fn=N()/2);
-			translate([0,0,secondary_engine_length/2]) sphere(r = secondary_engine_radius*0.7, $fn=N()/1.9);
-			//translate([0,0,-2]) sphere(r = secondary_engine_radius*0.7, $fn=N());
-			difference() {
-				translate([0,0,secondary_engine_cone_x_offset]) scale([secondary_engine_radius,secondary_engine_radius,1]) sphere(r=1.0,$fn=N());
-				translate([0,0,secondary_engine_cone_x_offset-1]) cylinder (h=2,r=secondary_engine_radius+.05,center=true,$fn=N());
-				translate([0,0,secondary_engine_cone_x_offset]) scale([secondary_engine_radius,secondary_engine_radius,1]) sphere(r=0.85,$fn=N());
+difference(){
+	union(){
+		// HULL //
+		scale([hull_length,hull_radius,hull_radius]) sphere(r=1.0,$fn=N());
+		// BRIDGE //
+		translate([bridge_forward,0,bridge_vertical]) scale([bridge_length,bridge_radius,bridge_radius]) sphere (r=1.0,$fn=N());
+		// ENGINEERING BRIDGE //
+		translate([engineering_bridge_forward,0,engineering_bridge_vertical]) scale([engineering_bridge_length,engineering_bridge_radius,engineering_bridge_radius]) sphere (r=1.0,$fn=N());
+		// PRIMARY ENGINE //
+		translate([primary_engine_x_offset,0,0]) rotate([0,90,0])
+			union() {
+				cylinder(h=primary_engine_length, r=primary_engine_radius, center=true, $fn=N());
+				difference() {
+					translate([0,0,primary_engine_cone_x_offset]) scale([primary_engine_radius,primary_engine_radius,1.5]) sphere(r=1.0,$fn=N());
+					translate([0,0,primary_engine_cone_x_offset-1]) cylinder (h=2,r=primary_engine_radius+.05,center=true,$fn=N());
+					translate([0,0,primary_engine_cone_x_offset]) scale([primary_engine_radius,primary_engine_radius,1.5]) sphere(r=0.9,$fn=N());
+				}
+			}
+		// SECONDARY ENGINES //
+		for (i = [0:num_secondary_engines-1]){
+			translate([secondary_engine_x_offset,sec_y[i],sec_z[i]]) rotate ([0,90,0])
+				union() {
+					cylinder(h=secondary_engine_length, r=secondary_engine_radius, center=true, $fn=N()/1.9);
+					translate([0,0,-secondary_engine_length/4]) cylinder(h=secondary_engine_length*.3, r=secondary_engine_radius*1.05, center=true, $fn=N()/2);
+					translate([0,0,secondary_engine_length/2]) sphere(r = secondary_engine_radius*0.7, $fn=N()/1.9);
+					//translate([0,0,-2]) sphere(r = secondary_engine_radius*0.7, $fn=N());
+					difference() {
+						translate([0,0,secondary_engine_cone_x_offset]) scale([secondary_engine_radius,secondary_engine_radius,1]) sphere(r=1.0,$fn=N());
+						translate([0,0,secondary_engine_cone_x_offset-1]) cylinder (h=2,r=secondary_engine_radius+.05,center=true,$fn=N());
+						translate([0,0,secondary_engine_cone_x_offset]) scale([secondary_engine_radius,secondary_engine_radius,1]) sphere(r=0.85,$fn=N());
+					}
+				}
+			// TRUSS
+			truss_length=sqrt(sec_y[i]*sec_y[i]+sec_z[i]*sec_z[i]);
+			truss_angle=atan(sec_z[i]/sec_y[i]);
+			for (i=[0:3]){
+				translate([truss_x_offset[i],0,0]) rotate([truss_angle+truss_angle_adjust[i],0,0]) translate([0,0,truss_length/2]) cylinder(h=truss_length,r=truss_radius,center=true,$fn=N()/3);
+				translate([truss_x_offset[i],truss_y_offset[i],0]) cylinder(h=v_truss_length,r=truss_radius,center=true,$fn=N()/3);
 			}
 		}
-	// TRUSS
-	truss_length=sqrt(sec_y[i]*sec_y[i]+sec_z[i]*sec_z[i]);
-	truss_angle=atan(sec_z[i]/sec_y[i]);
-	for (i=[0:3]){
-		translate([truss_x_offset[i],0,0]) rotate([truss_angle+truss_angle_adjust[i],0,0]) translate([0,0,truss_length/2]) cylinder(h=truss_length,r=truss_radius,center=true,$fn=N()/3);
-		translate([truss_x_offset[i],truss_y_offset[i],0]) cylinder(h=v_truss_length,r=truss_radius,center=true,$fn=N()/3);
+
+		// REAR LANDING GEAR //
+		for (i=[0:1]){
+			translate([housing_x_offset,housing_y_offset[i],0]) cube([housing_x,housing_y,2],center=true);
+		}
+
+		// CARGO BAY //
+		car_y = [cargo_bay_y_offset(),-cargo_bay_y_offset()];
+		for (i = [0:1]){
+			translate([0,car_y[i],cargo_bay_z_offset()]) scale([cargo_bay_length(),cargo_bay_y_radius(),cargo_bay_z_radius()]) sphere (r=1.0,$fn=N());
+		}
+
+		// FORWARD WINGS //
+
+		translate([forward_wing_x_offset(),-.5,0])
+			rotate([90,0,0])
+			linear_extrude(height=forward_wing_length(), scale=.5)
+			airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
+
+		mirror([0,1,0])
+			translate([forward_wing_x_offset(),-.5,0])
+			rotate([90,0,0])
+			linear_extrude(height=forward_wing_length(), scale=.5)
+			airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
+
+		// REAR WINGS //
+
+		translate([rear_wing_x_offset(),-.5,0])
+			rotate([90,0,0])
+			linear_extrude(height=rear_wing_length(), scale=.3)
+			airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());
+
+		mirror([0,1,0])
+			translate([rear_wing_x_offset(),-.5,0])
+			rotate([90,0,0])
+			linear_extrude(height=rear_wing_length(), scale=.3)
+			airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());
+
 	}
+	//}
+	/// SUBTRACTIONS ///
+
+	// DOOR //
+translate([2,.5,.3])cube(size = [.3,1,.6], center = true);
+
+// BRIDGE //
+translate([bridge_forward,0,bridge_vertical]) scale([bridge_length*bridge_interior_scale,bridge_radius*bridge_interior_scale,bridge_radius*bridge_interior_scale]) sphere (r=1.0,$fn=N());
+
 }
-
-// REAR LANDING GEAR //
-for (i=[0:1]){
-	translate([housing_x_offset,housing_y_offset[i],0]) cube([housing_x,housing_y,2],center=true);
-}
-
-// CARGO BAY //
-car_y = [cargo_bay_y_offset(),-cargo_bay_y_offset()];
-for (i = [0:1]){
-	translate([0,car_y[i],cargo_bay_z_offset()]) scale([cargo_bay_length(),cargo_bay_y_radius(),cargo_bay_z_radius()]) sphere (r=1.0,$fn=N());
-}
-
-// FORWARD WINGS //
-
-	translate([forward_wing_x_offset(),-.5,0])
-	rotate([90,0,0])
-linear_extrude(height=forward_wing_length(), scale=.5)
-	airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
-
-	mirror([0,1,0])
-	translate([forward_wing_x_offset(),-.5,0])
-	rotate([90,0,0])
-linear_extrude(height=forward_wing_length(), scale=.5)
-	airfoil(forward_wing_upper_axis(),forward_wing_lower_axis(),forward_upper_leading_scale(), forward_lower_scale(), N=N());
-
-// REAR WINGS //
-
-	translate([rear_wing_x_offset(),-.5,0])
-	rotate([90,0,0])
-linear_extrude(height=rear_wing_length(), scale=.3)
-	airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());
-
-	mirror([0,1,0])
-	translate([rear_wing_x_offset(),-.5,0])
-	rotate([90,0,0])
-linear_extrude(height=rear_wing_length(), scale=.3)
-	airfoil(rear_wing_upper_axis(),rear_wing_lower_axis(),rear_upper_leading_scale(), rear_lower_scale(), N=N());
