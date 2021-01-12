@@ -10,10 +10,12 @@ namespace Mirror {
         [SerializeField] public float lastFiredTime = 0.0f;
 
         private Quaternion startRotation;
+        private Vector3 forwardAtStart;
         [SerializeField] private int recoilCounter;
 
         private void Start() {
-            startRotation = transform.rotation;
+            startRotation = transform.localRotation;
+            forwardAtStart = transform.forward;
         }
 
         public void OnFire(float shotTime){
@@ -31,7 +33,8 @@ namespace Mirror {
         }
 
         public void RecoverFromRecoil() {
-            //transform.rotation = Quaternion.Slerp(transform.rotation, startRotation, recoilRecoveryRate * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, startRotation, recoilRecoveryRate * Time.deltaTime);
+            //transform.forward = Vector3.Lerp(tran);
         }
 	}
 }

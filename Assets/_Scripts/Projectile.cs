@@ -51,8 +51,8 @@ public class Projectile : NetworkBehaviour {
             }
         }
 
-        SpawnHitMarkers(hitPoint, co.gameObject.transform.forward);
-        RpcSpawnHitMarkers(hitPoint, co.gameObject.transform.forward);
+        SpawnHitMarkers(hitPoint, -transform.forward);
+        RpcSpawnHitMarkers(hitPoint, -transform.forward);
 
         NetworkServer.Destroy(gameObject);
     }

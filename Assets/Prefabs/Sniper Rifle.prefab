@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2122044977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2122044978}
+  m_Layer: 0
+  m_Name: Righ Hand Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2122044978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122044977}
+  m_LocalRotation: {x: 0.70305306, y: 0.052574653, z: -0.7072166, w: 0.052886125}
+  m_LocalPosition: {x: 0.236, y: -0.638, z: -0.117}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3369417267315384094}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 8.553, y: -89.658005, z: -179.949}
+--- !u!1 &1498176385420874238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9131441717707587718}
+  m_Layer: 0
+  m_Name: Left Hand Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9131441717707587718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498176385420874238}
+  m_LocalRotation: {x: 0.24355221, y: 0.010672835, z: 0.75563896, w: 0.60792947}
+  m_LocalPosition: {x: -0.21599917, y: -0.5289998, z: -1.3629998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3369417267315384094}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 16.26, y: 23.386002, z: 105.75201}
 --- !u!1 &1772671129105755405
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,14 +85,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772671129105755405}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.912, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.115, y: -0.281, z: 0.686}
+  m_LocalScale: {x: 0.45304853, y: 0.45304853, z: 0.45304853}
   m_Children:
   - {fileID: 5092529844489866278}
   - {fileID: 7761997841816646668}
   - {fileID: 7761997842388707733}
   - {fileID: 7761997841839568128}
+  - {fileID: 2122044978}
+  - {fileID: 9131441717707587718}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,8 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpawnLocation: {fileID: 7761997841839568128}
+  rightHandPosition: {fileID: 2122044978}
+  leftHandPosition: {fileID: 9131441717707587718}
   shotInterval: 1
-  projectile: {fileID: 3315362392934403618, guid: 54b523d273477dbc2a408fd54684e54b,
+  projectile: {fileID: 267629208824494470, guid: 585ac2f45eac6314d85f0ec07367c4b1,
     type: 3}
   itemName: Sniper Rifle
   maxAmmo: 5
@@ -79,6 +143,12 @@ MonoBehaviour:
   reloading: 0
   reloadTimer: 0
   useTimer: 0
+  recoilModifiers: {x: 0.1, y: 1}
+  noiseSampleStart: {x: 123, y: 321}
+  recoilRecoveryRate: 12
+  recoverFromRecoilTime: 0.1
+  lastFiredTime: 0
+  recoilCounter: 0
 --- !u!1 &5230227624450099344
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,8 +207,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5596651175626585437, guid: f0985a4f24e9ab54ebbbe4d20fd7e7a0, type: 3}
-  - {fileID: -301468577432101327, guid: f0985a4f24e9ab54ebbbe4d20fd7e7a0, type: 3}
+  - {fileID: 2100000, guid: 21efee2aaf7e5ba40a254da5e8689fad, type: 2}
+  - {fileID: 2100000, guid: 21efee2aaf7e5ba40a254da5e8689fad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
