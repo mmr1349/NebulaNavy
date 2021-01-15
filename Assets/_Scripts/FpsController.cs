@@ -28,7 +28,14 @@ public class FpsController : NetworkBehaviour {
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
+
+    float recoilRecoveryRate;
     float rotationX = 0;
+    float recoilRotation;
+    float rotationBeforeRecoil;
+    float recoilSpeed;
+    bool recoiling;
+    bool recovering;
     NetworkSpawner spawner;
     Health health;
     ItemManager itemManager;
@@ -40,6 +47,8 @@ public class FpsController : NetworkBehaviour {
     [SyncVar] public float horizontal;
     [SyncVar] public float vertical;
     [SyncVar] public bool jumping;
+
+    private float FOV;
 
     void Start() {
         EnablePlayer();
@@ -63,6 +72,7 @@ public class FpsController : NetworkBehaviour {
             uiController = FindObjectOfType<PlayerUIController>();
             itemManager.SetItemLayer("InHand");
             gameObject.layer = LayerMask.NameToLayer("LocalPlayer");
+            FOV = playerCamera.fieldOfView;
         } else {
             Debug.Log("Setting item layer to default");
             itemManager.SetItemLayer("Default");
@@ -117,17 +127,42 @@ public class FpsController : NetworkBehaviour {
 
         // Player and Camera rotation
         if (canMove) {
+            float rotationLastFrame = rotationX;
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            if (rotationX < rotationLastFrame) {
+                rotationBeforeRecoil += (rotationX - rotationLastFrame);
+            }
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        if (Input.GetButtonDown("Fire1")) {
+        //Firing gun code
+        if (Input.GetButton("Fire1")) {
             //gun.Fire();
             Debug.Log("Calling spawn stuff");
             //CmdSpawnStuff(itemManager.currentItem.bulletSpawnLocation.position, itemManager.currentItem.bulletSpawnLocation.forward);
             itemManager.CmdFireCurrentItem(itemManager.currentItem.bulletSpawnLocation.position, itemManager.currentItem.bulletSpawnLocation.forward);
+        }
+
+        if (recoiling) {
+            HandleRecoil();
+        } if (recovering) {
+            HandleRecovering();
+        }
+
+        //Aiming gun stuff
+        if (Input.GetButton("Fire2")) {
+            Debug.Log("Traying to aim weapon");
+            itemManager.AimWeapon();
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 50f, Time.deltaTime * 5f);
+        }
+        else {
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, FOV, Time.deltaTime * 7f);
+        }
+        if (Input.GetButtonUp("Fire2")) {
+            itemManager.UnAimWeapon();
+            
         }
 
         if (Input.GetButtonDown("Reload")) {
@@ -188,5 +223,64 @@ public class FpsController : NetworkBehaviour {
     [ClientRpc]
     void RpcUndisablePlayer() {
         gameObject.SetActive(true);
+    }
+
+    [ClientRpc]
+    public void RpcRecoil(Vector3 rotationEulerAngles) {
+        playerCamera.transform.localRotation = Quaternion.Euler(playerCamera.transform.localRotation.eulerAngles + rotationEulerAngles);
+    }
+
+    public void Recoil(float recoilX, float recoilRecoveryRate, float recoilSpeed) {
+        Debug.Log("Recoiling!");
+        /*playerCamera.transform.localRotation = Quaternion.Euler(playerCamera.transform.localRotation.eulerAngles + rotationEulerAngles);
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);*/
+        if (!recoiling) {
+            rotationBeforeRecoil = rotationX;
+            recoiling = true;
+        }
+        this.recoilSpeed = recoilSpeed;
+        this.recoilRecoveryRate = recoilRecoveryRate;
+        //rotationX -= rotationEulerAngles.x;
+        recoilRotation += recoilX;
+        Debug.Log("Recoil Rotation: " + recoilRotation);
+        recovering = false;
+    }
+
+    void HandleRecoil() {
+        if (recoiling) {
+            float recoilTowards = Mathf.Clamp(rotationBeforeRecoil - recoilRotation, -lookXLimit, lookXLimit);
+            Debug.Log("Recoiling Towards " + recoilTowards);
+            rotationX = Mathf.Lerp(rotationX, recoilTowards, Time.deltaTime * recoilSpeed);
+            if (CheckFloatInRange(rotationX, recoilTowards+0.1f, recoilTowards-0.1f)) {
+                recoiling = false;
+                recovering = true;
+            }
+        }
+    }
+
+    void HandleRecovering() {
+        if (recovering) {
+            recoilRotation = 0f;
+            if (rotationX < rotationBeforeRecoil) {
+                rotationX = Mathf.Lerp(rotationX, rotationBeforeRecoil, Time.deltaTime * recoilRecoveryRate);
+                if (CheckFloatInRange(rotationX, rotationBeforeRecoil + 0.03f, rotationBeforeRecoil - 0.03f)) {
+                    recovering = false;
+                }
+            } else {
+                recovering = false;
+            }
+        }
+    }
+
+    bool CheckFloatInRange(float toCheck, float highRange, float lowRange) {
+        if (toCheck <= highRange && toCheck >= lowRange) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void StopRecoiling() {
+        recoiling = false;
     }
 }

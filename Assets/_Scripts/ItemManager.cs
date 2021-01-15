@@ -10,18 +10,7 @@ public class ItemManager : NetworkBehaviour
     public Item currentItem;
     public int currentItemIndex;
 
-    // Start is called before the first frame update
-    /*void Start()
-    {
-        items = new List<Item>();
-        items.AddRange(GetComponentsInChildren<Item>());
-        foreach (var it in items) {
-            it.gameObject.SetActive(false);
-        }
-        items[0].gameObject.SetActive(true);
-        currentItem = items[0];
-        currentItemIndex = 0;
-    }*/
+    private FpsController player;
 
     private void Start() {
         Debug.Log("Doing item activation stuff");
@@ -34,6 +23,7 @@ public class ItemManager : NetworkBehaviour
             items[i].gameObject.SetActive(false);
         }
         items[0].gameObject.SetActive(true);
+        player = GetComponent<FpsController>();
     }
 
     public override void OnStartLocalPlayer() {
@@ -119,6 +109,12 @@ public class ItemManager : NetworkBehaviour
         if ((Gun)currentItem) {
             Gun gunItem = (Gun)currentItem;
             gunItem.OnFire(Time.time);
+            float perlinNoiseX = Mathf.PerlinNoise(gunItem.noiseSampleStart.x + gunItem.recoilCounter, gunItem.noiseSampleStart.y + gunItem.recoilCounter);
+            float perlinNoiseY = Mathf.PerlinNoise(gunItem.noiseSampleStart.y + gunItem.recoilCounter, gunItem.noiseSampleStart.x + gunItem.recoilCounter);
+            float movementX = Random.Range(gunItem.minRecoil.x, gunItem.maxRecoil.x);
+            float movementY = Random.Range(gunItem.minRecoil.y, gunItem.maxRecoil.y);
+            Vector3 camRecoil = new Vector3(movementX, movementY, 0f);
+            player.Recoil(movementX, gunItem.recoilRecoveryRate, gunItem.recoilModifiers.x);
         }
     }
 
@@ -174,6 +170,21 @@ public class ItemManager : NetworkBehaviour
             if ((Time.time - gunItem.lastFiredTime) >= gunItem.recoverFromRecoilTime) {
                 RpcRecoverFromRecoil();
             }
+        }
+    }
+
+    public void AimWeapon() {
+        if ((Gun)currentItem) {
+            Gun gunItem = (Gun)currentItem;
+            Debug.Log("Aiming the gun");
+            gunItem.Aim();
+        }
+    }
+
+    public void UnAimWeapon() {
+        if ((Gun)currentItem) {
+            Gun gunItem = (Gun)currentItem;
+            gunItem.UnAim();
         }
     }
 

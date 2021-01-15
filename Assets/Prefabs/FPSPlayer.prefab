@@ -213,7 +213,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -356,8 +356,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 60
+  m_StepOffset: 0.25
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -373,9 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 2756745631
+  sceneId: 0
   serverOnly: 0
-  m_AssetId: 
+  m_AssetId: 445b5d24c9f3f2142afd806899bf90e4
   hasSpawned: 0
 --- !u!114 &7402321692223099556
 MonoBehaviour:
@@ -565,17 +565,17 @@ PrefabInstance:
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.144
       objectReference: {fileID: 0}
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.26942
+      value: -0.29789
       objectReference: {fileID: 0}
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.728
+      value: 0.697
       objectReference: {fileID: 0}
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
@@ -620,23 +620,73 @@ PrefabInstance:
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4821717
+      value: 0.38508162
       objectReference: {fileID: 0}
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4821717
+      value: 0.38508162
       objectReference: {fileID: 0}
     - target: {fileID: 3369417267315384094, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4821717
+      value: 0.38508162
       objectReference: {fileID: 0}
     - target: {fileID: 7761997842383215070, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ea3f0958f21bb484684f255ae35eb9ef, type: 2}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: recoilModifiers.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: recoilModifiers.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: minRecoil.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: minRecoil.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: maxRecoil.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: maxRecoil.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: aimPosition.y
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: 0.559
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: aimSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842383215071, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: recoilRecoveryRate
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5092529844489866278, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -646,6 +696,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997841816646668, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997841816646668, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997841816646668, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.133
       objectReference: {fileID: 0}
     - target: {fileID: 5230227624450099344, guid: cf2d575177a3daf41832b40e4a80bb02,
         type: 3}
@@ -666,6 +731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761997842388707731, guid: cf2d575177a3daf41832b40e4a80bb02,
+        type: 3}
+      propertyPath: field of view
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2122044977, guid: cf2d575177a3daf41832b40e4a80bb02, type: 3}
       propertyPath: m_Layer
@@ -1243,7 +1313,7 @@ PrefabInstance:
     - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
         type: 3}
       propertyPath: recoilModifiers.x
-      value: 0.1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
         type: 3}
@@ -1269,6 +1339,41 @@ PrefabInstance:
         type: 3}
       propertyPath: recoverFromRecoilTime
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: minRecoil.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: minRecoil.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: maxRecoil.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: maxRecoil.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: aimPosition.y
+      value: -0.198
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: 0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187422499563510637, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
+        type: 3}
+      propertyPath: aimSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1187422499563510638, guid: d33580ac627bb0e4f8dd4a5a1250b47d,
         type: 3}
@@ -1443,7 +1548,7 @@ PrefabInstance:
     - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
         type: 3}
       propertyPath: recoilModifiers.x
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
         type: 3}
@@ -1463,12 +1568,47 @@ PrefabInstance:
     - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
         type: 3}
       propertyPath: recoilRecoveryRate
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
         type: 3}
       propertyPath: recoverFromRecoilTime
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: minRecoil.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: minRecoil.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: maxRecoil.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: maxRecoil.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: aimPosition.y
+      value: -0.137
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990260290765144663, guid: c54737322272eff4db8824c71efaeef2,
+        type: 3}
+      propertyPath: aimSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4934366890664316641, guid: c54737322272eff4db8824c71efaeef2,
         type: 3}

@@ -21,7 +21,7 @@ public class Item : MonoBehaviour
     [HideInInspector] public float reloadTimer = 0.0f;
     [HideInInspector] public float useTimer = 0.0f;
 
-    private Animator anim;
+    public Animator anim;
 
     private void Awake() {
         anim = GetComponent<Animator>();
