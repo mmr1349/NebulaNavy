@@ -34,11 +34,12 @@ public class Projectile : NetworkBehaviour {
     // called on the client
     [ServerCallback]
     void OnTriggerEnter(Collider co) {
-        ServerOnHitThing(co, co.ClosestPoint(transform.position));
+        Debug.Log("Using incorrect normal");
+        ServerOnHitThing(co, co.ClosestPoint(transform.position), -transform.forward);
     }
     
     [Server]
-    private void ServerOnHitThing(Collider co, Vector3 hitPoint) {
+    private void ServerOnHitThing(Collider co, Vector3 hitPoint, Vector3 normal) {
         Debug.Log("Collided with: " + co.name);
         Health hp = co.GetComponent<Health>();
         if (hp) {
@@ -50,29 +51,30 @@ public class Projectile : NetworkBehaviour {
                 return;
             }
         }
-
-        SpawnHitMarkers(hitPoint, -transform.forward);
-        RpcSpawnHitMarkers(hitPoint, -transform.forward);
+        SpawnHitMarkers(hitPoint, -transform.forward, normal);
+        RpcSpawnHitMarkers(hitPoint, -transform.forward, normal);
 
         NetworkServer.Destroy(gameObject);
     }
 
     [ClientRpc]
-    private void RpcSpawnHitMarkers(Vector3 position, Vector3 direction) {
-        SpawnHitMarkers(position, direction);
+    private void RpcSpawnHitMarkers(Vector3 position, Vector3 direction, Vector3 normal) {
+        SpawnHitMarkers(position, direction, normal);
     }
 
-    private void SpawnHitMarkers(Vector3 position, Vector3 direction) {
-        Instantiate(hitMarker, position + (direction*0.01f), Quaternion.Euler(direction));
+    private void SpawnHitMarkers(Vector3 position, Vector3 direction, Vector3 normal) {
+        GameObject marker = Instantiate(hitMarker, position + (direction*0.01f), Quaternion.identity);
+        marker.transform.forward = normal;
+        
     }
 
     [ServerCallback]
     private void FixedUpdate() {
-        float rayLength = rigidBody.velocity.magnitude*Time.fixedDeltaTime;
+        float rayLength = (rigidBody.velocity.magnitude*Time.fixedDeltaTime) + 1f;
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength)) {
-            ServerOnHitThing(hit.collider, hit.point);
+            ServerOnHitThing(hit.collider, hit.point, hit.normal);
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Mirror
                 if (GUILayout.Button("Client Ready"))
                 {
                     ClientScene.Ready(NetworkClient.connection);
+                    
 
                     if (ClientScene.localPlayer == null)
                     {

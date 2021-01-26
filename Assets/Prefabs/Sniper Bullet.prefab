@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 936182484
+  sceneId: 738854234
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
@@ -147,5 +147,5 @@ MonoBehaviour:
   damage: 50
   destroyAfter: 3
   rigidBody: {fileID: 2971833494103688551}
-  force: 3000
+  force: 8000
   creatorNetID: 0

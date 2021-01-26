@@ -6,8 +6,13 @@ using Mirror;
 public class Health : NetworkBehaviour
 {
 
+    [SerializeField] private GameObject loadOutScreen;
     [SyncVar(hook = nameof(HealthChanged))][SerializeField] private int healthPoints;
 
+
+    private void Start() {
+        loadOutScreen = FindObjectOfType<LoadOutController>(true).gameObject;
+    }
 
     public int GetHealthPoints() {
         return healthPoints;
@@ -34,6 +39,7 @@ public class Health : NetworkBehaviour
     [Command]
     public void CmdKillPlayer() {
         if (healthPoints <= 0) {
+            //NetworkController.networkController.ServerKillPlayer(this.netId);
             RpcKillPlayer();
         }
     }
@@ -53,8 +59,16 @@ public class Health : NetworkBehaviour
     [Server]
     public void ServerKillPlayer() {
         if (healthPoints <= 0) {
+            //NetworkController.networkController.ServerKillPlayer(this.netId);
+            TargetOpenLoadoutScree(netIdentity.connectionToClient);
             RpcKillPlayer();
         }
+    }
+
+    [TargetRpc]
+    private void TargetOpenLoadoutScree(NetworkConnection target) {
+        Debug.Log("we have been told to die and open up the loadout screen");
+        loadOutScreen.SetActive(true);
     }
 
     [Server]

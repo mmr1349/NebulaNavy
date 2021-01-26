@@ -33,6 +33,7 @@ public class ItemManager : NetworkBehaviour
     [Command]
     public void CmdActivateNext() {
         Debug.Log("Activating next");
+        player.ResetRecoilData();
         if (currentItemIndex == items.Count-1) {
             currentItemIndex = 0;
             //currentItem = items[currentItemIndex];
@@ -46,6 +47,7 @@ public class ItemManager : NetworkBehaviour
     [Command]
     public void CmdActivatePrevious() {
         Debug.Log("Activating previous");
+        player.ResetRecoilData();
         if (currentItemIndex == 0) {
             currentItemIndex = items.Count-1;
             //currentItem = items[currentItemIndex];
@@ -64,6 +66,7 @@ public class ItemManager : NetworkBehaviour
 
     [ClientRpc]
     private void RpcUpdateCurrentItem(int newIndex) {
+        player.ResetRecoilData();
         currentItemIndex = newIndex;
         if (currentItem) {
             currentItem.gameObject.SetActive(false);
@@ -109,22 +112,19 @@ public class ItemManager : NetworkBehaviour
         if ((Gun)currentItem) {
             Gun gunItem = (Gun)currentItem;
             gunItem.OnFire(Time.time);
-            float perlinNoiseX = Mathf.PerlinNoise(gunItem.noiseSampleStart.x + gunItem.recoilCounter, gunItem.noiseSampleStart.y + gunItem.recoilCounter);
-            float perlinNoiseY = Mathf.PerlinNoise(gunItem.noiseSampleStart.y + gunItem.recoilCounter, gunItem.noiseSampleStart.x + gunItem.recoilCounter);
-            float movementX = Random.Range(gunItem.minRecoil.x, gunItem.maxRecoil.x);
-            float movementY = Random.Range(gunItem.minRecoil.y, gunItem.maxRecoil.y);
-            Vector3 camRecoil = new Vector3(movementX, movementY, 0f);
-            player.Recoil(movementX, gunItem.recoilRecoveryRate, gunItem.recoilModifiers.x);
+            /*float perlinNoiseX = Mathf.PerlinNoise(gunItem.noiseSampleStart.x + gunItem.recoilCounter, gunItem.noiseSampleStart.y + gunItem.recoilCounter);
+            float perlinNoiseY = Mathf.PerlinNoise(gunItem.noiseSampleStart.y + gunItem.recoilCounter, gunItem.noiseSampleStart.x + gunItem.recoilCounter);*/
+            /*float movementX = Random.Range(gunItem.minRecoil.x, gunItem.maxRecoil.x);
+            float movementY = Random.Range(gunItem.minRecoil.y, gunItem.maxRecoil.y);*/
+            //Vector3 camRecoil = new Vector3(movementX, movementY, 0f);
+            //player.Recoil(movementX, gunItem.recoilRecoveryRate, gunItem.recoilModifiers.x);
+            player.Recoil(gunItem.recoilArray, gunItem.recoilRecoveryRate, gunItem.recoilRecoveryDelay);
         }
     }
 
     [ClientRpc]
     public void RpcRecoverFromRecoil() {
-        if ((Gun)currentItem) {
-            Gun gunItem = (Gun)currentItem;
-            gunItem.RecoverFromRecoil();
-            gunItem.ResetRecoilCointer();
-        }
+        
     }
 
     [Command]
@@ -165,12 +165,6 @@ public class ItemManager : NetworkBehaviour
                 RpcModifyAmmoCount(currentItem.maxAmmo);
             }
         }
-        if ((Gun)currentItem) {
-            Gun gunItem = (Gun)currentItem;
-            if ((Time.time - gunItem.lastFiredTime) >= gunItem.recoverFromRecoilTime) {
-                RpcRecoverFromRecoil();
-            }
-        }
     }
 
     public void AimWeapon() {
@@ -192,5 +186,25 @@ public class ItemManager : NetworkBehaviour
         foreach (Item it in items) {
             it.gameObject.layer = LayerMask.NameToLayer(layerName);
         }
+    }
+
+    public float GetAimFOV() {
+        if ((Gun)currentItem) {
+            return ((Gun)currentItem).aimFOV;
+        }
+        return 50f;
+    }
+
+    public void SetItems(GameObject item1, GameObject item2) {
+        Transform parent = items[0].transform.parent;
+        for (int i = 0; i < items.Count; i++) {
+            Destroy(items[i].gameObject);
+        }
+        items.Clear();
+
+        items.Add(Instantiate(item1, parent).GetComponent<Item>());
+        items.Add(Instantiate(item2, parent).GetComponent<Item>());
+        items[1].gameObject.SetActive(false);
+        currentItem = items[0];
     }
 }

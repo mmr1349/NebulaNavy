@@ -31,9 +31,10 @@ public class FpsController : NetworkBehaviour {
 
     float recoilRecoveryRate;
     float rotationX = 0;
-    float recoilRotation;
+    float recoilRotation = 0f;
     float rotationBeforeRecoil;
     float recoilSpeed;
+    public float recoilDelta = 0f;
     bool recoiling;
     bool recovering;
     NetworkSpawner spawner;
@@ -49,15 +50,23 @@ public class FpsController : NetworkBehaviour {
     [SyncVar] public bool jumping;
 
     private float FOV;
+    private MinMax[] recoilArray;
+    private int recoilIndex = 0;
+    private float recoveryDelay;
+    private float recoilEndTime;
+    private float timeAtLastRecoil;
+
+    public override void OnStartLocalPlayer() {
+        base.OnStartLocalPlayer();
+        CustomNetworkManager.networkManager.localPlayer = this.gameObject;
+        CustomNetworkManager.networkManager.localPlayerNetID = netId;
+    }
 
     void Start() {
         EnablePlayer();
-        if (isLocalPlayer) {
-            gameObject.name = "LocalPlayer";
-        } else {
-            gameObject.name = "EnemyPlayer";
-        }
-        //if (!isLocalPlayer) return;
+
+        GetComponentInChildren<NameTag>(true).SetTextAndColor(gameObject.name, Color.white);
+
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
@@ -128,11 +137,15 @@ public class FpsController : NetworkBehaviour {
         // Player and Camera rotation
         if (canMove) {
             float rotationLastFrame = rotationX;
+             
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            if (rotationX < rotationLastFrame) {
-                rotationBeforeRecoil += (rotationX - rotationLastFrame);
+            if (Input.GetAxis("Mouse Y") > 0f) {
+                rotationBeforeRecoil = rotationX;
             }
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            /*if (rotationX < rotationLastFrame) {
+                //rotationBeforeRecoil += (rotationX - rotationLastFrame);
+            }*/
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
@@ -146,45 +159,71 @@ public class FpsController : NetworkBehaviour {
         }
 
         if (recoiling) {
-            HandleRecoil();
+            //HandleRecoil();
         } if (recovering) {
-            HandleRecovering();
+            if (Time.time >= recoilEndTime + recoveryDelay) {
+                HandleRecovering();
+            }
         }
 
         //Aiming gun stuff
         if (Input.GetButton("Fire2")) {
             Debug.Log("Traying to aim weapon");
             itemManager.AimWeapon();
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 50f, Time.deltaTime * 5f);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, itemManager.GetAimFOV(), Time.deltaTime * 5f);
         }
         else {
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, FOV, Time.deltaTime * 7f);
         }
         if (Input.GetButtonUp("Fire2")) {
             itemManager.UnAimWeapon();
-            
+        }
+
+
+        if (Input.GetAxis("Mouse ScrollWheel") >= 0.01f) {
+            itemManager.CmdActivateNext();
+            Debug.Log("Scrolling up");
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") <= -0.01f) {
+            itemManager.CmdActivatePrevious();
+            Debug.Log("Scrolling down");
         }
 
         if (Input.GetButtonDown("Reload")) {
             itemManager.CmdReloadItem();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            Cursor.lockState = Cursor.visible ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !Cursor.visible;
+        if (Input.GetKeyDown(KeyCode.K)) {
+            health.CmdSetHealthPoints(0);
+        }
+    }
+
+    private void FixedUpdate() {
+        if (recoiling) {
+            if (recoilIndex >= recoilArray.Length) {
+                recoiling = false;
+                recovering = true;
+                recoilEndTime = Time.time;
+            }
+            else {
+                rotationX -= Random.Range(recoilArray[recoilIndex].min, recoilArray[recoilIndex].max);
+                recoilIndex++;
+            }
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") >= 0.01f) {
-            itemManager.CmdActivateNext();
-            Debug.Log("Scrolling up");
-        } else if (Input.GetAxis("Mouse ScrollWheel") <= -0.01f) {
-            itemManager.CmdActivatePrevious();
-            Debug.Log("Scrolling down");
-        }
+
+        if (!isLocalPlayer) return;
 
         uiController.SetHealthSliderValue(health.GetHealthPoints());
         uiController.SetWeaponNameText(itemManager.currentItem.name);
         uiController.SetWeaponAmmoText(itemManager.currentItem.maxAmmo, itemManager.currentItem.currentAmmo);
+
+        
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Cursor.lockState = Cursor.visible ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !Cursor.visible;
+        }
     }
 
     [Command]
@@ -208,10 +247,17 @@ public class FpsController : NetworkBehaviour {
         }
     }*/
 
-    [ServerCallback]
+    
+       
     private void OnDisable() {
         //When we are disabled start a timer to undisable
-        Invoke("ServerUndisablePlayer", 10f);
+        /*if (isServer) {
+            Invoke("ServerUndisablePlayer", 10f);
+        }*/
+        if (isLocalPlayer) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     [Server]
@@ -242,31 +288,64 @@ public class FpsController : NetworkBehaviour {
         this.recoilRecoveryRate = recoilRecoveryRate;
         //rotationX -= rotationEulerAngles.x;
         recoilRotation += recoilX;
+        recoilDelta += recoilX;
         Debug.Log("Recoil Rotation: " + recoilRotation);
         recovering = false;
     }
 
+    public void Recoil(MinMax[] recoilValues, float recoilRecoveryRate, float recoveryDelay) {
+        if (!recoiling) {
+            this.recoilRecoveryRate = recoilRecoveryRate;
+            this.recoveryDelay = recoveryDelay;
+            if (Time.time >= timeAtLastRecoil + recoveryDelay) {
+                rotationBeforeRecoil = rotationX;
+            }
+            timeAtLastRecoil = Time.time;
+            recoilArray = recoilValues;
+            recoilIndex = 0;
+            recoiling = true;
+            recovering = false;
+        }
+    }
+
     void HandleRecoil() {
         if (recoiling) {
+            Debug.Log("Still recoiling");
             float recoilTowards = Mathf.Clamp(rotationBeforeRecoil - recoilRotation, -lookXLimit, lookXLimit);
-            Debug.Log("Recoiling Towards " + recoilTowards);
-            rotationX = Mathf.Lerp(rotationX, recoilTowards, Time.deltaTime * recoilSpeed);
-            if (CheckFloatInRange(rotationX, recoilTowards+0.1f, recoilTowards-0.1f)) {
+            float changeInRot = -rotationX;
+            rotationX = Mathf.MoveTowards(rotationX, recoilTowards, Time.deltaTime * recoilSpeed);
+            //changeInRot += rotationX;
+            changeInRot = Mathf.MoveTowards(rotationX, recoilTowards, Time.deltaTime * recoilSpeed);
+            Debug.Log("Change in rot: " + changeInRot);
+            if (changeInRot < 0f) {
+                recoilDelta += changeInRot;
+            }
+
+            if (recoilDelta <= 0.01f || CheckFloatInRange(rotationX, recoilTowards-0.03f, recoilTowards-0.03f)) {
+                recoilDelta = 0f;
                 recoiling = false;
                 recovering = true;
             }
+            /*if (CheckFloatInRange(rotationX, recoilTowards+0.1f, recoilTowards-0.1f)) {
+                recoiling = false;
+                recovering = true;
+            }*/
         }
     }
 
     void HandleRecovering() {
         if (recovering) {
+            Debug.Log("Trying to recover");
             recoilRotation = 0f;
+            timeAtLastRecoil = 0f;
             if (rotationX < rotationBeforeRecoil) {
                 rotationX = Mathf.Lerp(rotationX, rotationBeforeRecoil, Time.deltaTime * recoilRecoveryRate);
                 if (CheckFloatInRange(rotationX, rotationBeforeRecoil + 0.03f, rotationBeforeRecoil - 0.03f)) {
+                    Debug.Log("REached our destination rotationX: " + rotationX + " beforeRecoil: " + rotationBeforeRecoil);
                     recovering = false;
                 }
             } else {
+                Debug.Log("Rotations were: rotationX: " + rotationX + " beforeRecoil: " + rotationBeforeRecoil);
                 recovering = false;
             }
         }
@@ -280,7 +359,18 @@ public class FpsController : NetworkBehaviour {
         }
     }
 
-    public void StopRecoiling() {
+    public void ResetRecoilData() {
         recoiling = false;
+        recovering = false;
+        recoilDelta = 0f;
+        rotationBeforeRecoil = 0f;
+        recoilRotation = 0f;
+
+
+    }
+
+    public void SetName(string name) {
+        gameObject.name = name;
+        //Color color = isLocalPlayer ? Color.white : Color.red;
     }
 }
