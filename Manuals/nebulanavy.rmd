@@ -1,0 +1,243 @@
+---
+title: 'Nebula Navy'
+subtitle: 'Working Title'
+author:
+- 'Luke Bubar'
+- 'Marcus Richmond'
+output: pdf_document
+---
+
+\tableofcontents
+
+\clearpage
+
+\part{Lore\label{lore}}
+
+The most important thing you can understand about the world we are trying to build here is that it is not a world of clear boundaries or precisely defined limits.
+It is a world of mystery, with always something more to be discovered.
+That is not to say that it should not make sense.
+Any piece of the world should **always** *make sense* when viewed from the outside with the proper context\footnote{The characters in the story may not understand what is happening, but it should all be made clear in time}.
+
+The second most important thing is that we are creating a lot of lore to fit in to one two-man video game.
+Not all of this needs to be in the game.
+It can be added later or maybe never.
+But the additional Lore must serve as a backdrop to what we see in the game.
+
+# Introduction\label{intro}
+
+In the far reaches of mysterious and wild space, there is not peace for those do not fight for it.
+
+For thousands of generations, the Church has been God\footnote{Might use a different word than the english "God". We don't *necessarily* want people to think of the Church as it is today when they see the church in this world}'s gift to humanity. His bride, to lead them to his Kingdom.
+Despite the millennia of attack the Church has endured, no matter in memory seems as dire as the one it faces now.
+
+The Middle Nations, the cosmopolitan center of civilized space, has been the triumph of technological advancement and cultural achievement in many an eye.
+Only the most vigilant had eyes to see what it was becoming, but no action could be mustered in time.
+The Middle Nations had collapsed under the strain of generations of societal decay; not in an instant, but over the centuries past that most had been too blind to see.
+
+It's people are now the slaves in mind, body, and spirit\footnote{Protohumans. Like Orks or goblins} under the cruel and despotic Middle League\footnote{The ensignia for witch will be the like the CBS logo and the planet Saturn}.
+Once masqueraded as an egalitarian think-tank, it has revealed it's true colors as a satanic cult\footnote{Few outsiders know the evil mysteries behind how they conduct themselves.}.
+Bursting with power, and now, unity of it's citizens, The Middle League has begun expanding it's territories.
+
+The Outer Provinces, made up of the children of frontiersmen who left to settle the far reaches of the galaxy, carry on in the face of danger as they always had, believing themselves too small to be under the eye of such large nations.
+
+The wisest and oldest among The Old Kingdoms\footnote{Which were once united as an empire that bears the same legacy carried from Rome, to Byzantine, to Imperial Russia} are among the first to see the impending destruction that the Middle Nations could bring, and implore that war be brought down upon them!
+
+# Religion
+
+Christianity.
+
+## Priests, Bishops, Deacons
+
+* Some priests act as chaplains on the battlefield.
+* They can have the game abilities to boost defense or attack by saying prayers.
+
+# Creatures
+
+There are dragons, giant birds, colossal sand worms, big spiders.
+
+The only rule is to expect the unexpected.
+
+## Humanoids
+
+See footnote\footnote{I am not yet sure if we should have alien life forms or strictly humans, or what the ethnic divides will be. I just know there will be some. I will research the topic more - Luke Bubar}
+
+# Space
+
+The star-systems and homeworlds that this great conflict takes place in are not in one galaxy.
+They are simply the star systems that are all connected by the hyperspace lanes.
+
+Thus, two systems that would consider each-other neighbors, and may be less than a day's travel apart by hyper-lane may be separated by billions of light years, where as two systems that are only thousands of light years apart may take months to reach.
+
+Below-space or Hyper-space follows non-euclidean geometry.
+
+* There is no apparent logic for where a lane will begin or end in traditional 3D space.
+* This makes for interesting large-scale tactics and dynamics.
+* Some of the space maps will be inside nebulas with breathable air.
+* There exist many creatures that live in space. Anything from nebula-trees to space-whales
+	- Dragons and other mythological creatures exist as both good creations of GOD, and evil perversions by Satan.
+
+All deep-space exploration vessels from the Old Kingdoms have hydroponic gardens and chapels inside.
+
+# Weapons
+
+## Ranged Small Arms
+
+### Bullet-based
+
+* Bullet-based weapons are highly reliable. They behave much like firearms today except for recoil management systems are far more advanced; leading to easier firing of more powerful cartridges.
+* Recoil is still relatively high compared to other weapons available at the time.
+	- Different types of rounds allow different effectiveness levels against different targets
+		+ Incendiary (highly effective against unarmored)
+		+ HM (High Mass, moderately effective against energy shields)
+		+ HE (High Explosive, moderately effective against armor)
+		+ FMJ (Most Common, not particularly effective against any single armor type).
+
+### Laser-based
+
+* Laser-based weapons are the most accurate weapons platform, but drains a high amount of power.
+* Portable laser blasters require constant recharging and replacing of power units.
+* Lasers see most use in ship-mounted or stationary roles.
+* Lasers have no recoil.
+* Lasers perform exceptionally against all types of armor.
+* Lasers either do or do not have the power to break through energy shields. They can not wear down the shields themselves.
+
+\subsubsection{Plasma-based\label{plasma}}
+
+* Shortest Range of all the weapon types, but some variants can still go in long-range combat
+* Very High Effectiveness against powered shields and unarmored targets (lights them on fire).
+* Very High Ammo Capacity and Fire Rate.
+
+#### Plasma Lance
+
+The Plasma Lance is a long, slender weapon that fires in semi-auto. It is effective at distances at ~70 yards or less, and is useless at ranges of greater than 200 yards due to the plasma dispersing.
+It's light weight and spear point make it excellent in meleé engagements over the heavier assault rifle.
+
+\subsubsection{Plasma-engulfed Projectiles (PEP guns)\label{pep}}
+
+* Moderate Range
+* Highly Effective against all armor types
+* Only available in large weapon platforms, due to the need to fire the projectile and generate the plasma.
+
+### Armor and Shields
+
+Few soldiers march into battle without being covered head to toe with protection.
+Due to the high effectiveness of armor, as well as the high-mobility provided from jet packs and vehicles, meleé combat is important, especially in the ship corridors.
+
+\part{Gameplay}
+
+# Control
+
+* First and third-person
+
+## Movement
+
+Old-school FPS style with a little new flare.
+Things like crouch-jumping come back from the old days.
+
+The default movement cycle is a light run, during which firing from the hip is very accurate.
+When ADS is turned on, this turns into a tactical speed-walk.
+When the run key is held down (typically left shift), the character gets an omnidirectional speed boost at the expense of accuracy and stamina.
+
+The character can crouch-walk, crouch-ADS, and crouch-run too.
+All come at an increased speed and stamina cost.
+
+Sliding can be done by running then hitting the crouch key.
+
+## Recoil
+
+A melding of Battlefront Classic and Insurgency.
+
+When not ADS, recoil cannot be affected by mouse movement, and will randomly place in a cone around the reticle.
+When in ADS, the shot will always go in the center of the reticle (or in an even tighter cone for some weapons with inherent innacuracy), but the reticle moves.
+
+## Meleé
+
+The player can *always* meleé attack or block unless operating a vehicle or machine.
+
+Blocks work by clicking the block button.
+A block will be held for a second.
+If an attack lands in that time, the damage of the attack is significantly reduced.
+If the player hits block at a very-small window of the attack and has a sword, club, or shield, they perform a parry in which the enemy player cannot attack or defend for a small window.
+
+Thrusting weapons have an additional armor-penetration boost.
+
+| Item in Hands              | Attack          | Defend            | Perfect Damage Block | Relative Block Window |
+| ---                        | -----           | ---               | ---                  | ---                   |
+| Utility Object/Nothing     | Punch           | Boxer-Block       | no                   | 20%                   |
+| Handgun                    | Pistol-whip     | Boxer-Block       | no                   | 20%                   |
+| Longgun                    | Butt-hit        | Hold up gun       | yes                  | 35%                   |
+| Longgun with bayonet/Spear | Bayonet thrust  | Hold up gun/spear | yes                  | 35%                   |
+| Sword                      | thrust or slash | block/parry       | yes                  | 60%                   |
+| Club-like                  | Strike          | block/parry       | yes                  | 60%                   |
+| Shield                     | (default)       | long-block/parry  | yes                  | 100%                  |
+
+
+# Health
+
+Different parts of the character's body have different HP levels, as well as different parts of the armor.
+As the health of a body part or piece of equipment decreases, it becomes less effective.
+For example:
+
+* Wounded legs decrease run speed and jump height.
+* Wounded arms decrease accuracy and meleé damage.
+* Broken jetpacks, oxygen tanks, or space suits will no longer function.
+
+If any body part reaches zero health, the character dies and is respawned.
+
+# Classes
+
+Every faction has their own classes, which together make a well-rounded team.
+Not every class for one faction will have a mirror in another faction.
+
+Classes will be minorly customizable for minor cosmetics or different weapon options, but they should all serve the primary tactical and aesthetic intention of the class.
+
+Here are some class ideas.
+
+## Old Kingdoms
+
+### Star Marine
+
+The bulk infantry force of the Old Kingdoms. They are most effective on the ground or in ship hulls. They can perform combat in space, but they are out-matched against specialist space infantry.
+
+#### Armor
+
+* Full-body medium-strength alloy plate armor, over a full-body-glove.
+* Over all that is worn a camouflaged poncho with hood, or a colourful tabard bearing the crest of their lord, general, or kingdom when camouflage cannot help, or is not as important as is distinguishing your own ranks.
+* Helmets have a retractable face covering. The full-body-glove and helmet combine to create a vacuum seal, and the armor provides solar radiation resistance. However, the helmet only has ~30 seconds of oxygen, but can take external oxygen tanks.
+* The armor comes standard with magnet boots for emergency space walks (possible a micro-jump-pack for short jumps and as additional zero-grav navigation).
+
+#### Weapons
+
+* Primary - Assault rifle, Plasma Lance\footnote{see page \pageref{plasma}}
+* Secondary (pick 2) - projectile pistol, plasma pistol, arming sword, sticky bomb launcher
+
+#### Other Equipment
+
+* Grenades of some kind, as well as consumable oxygen tanks
+
+### Galactic Ranger
+Specialist troops best equipped to fight in space.
+
+#### Armor
+
+* Alloy plating covers the chest and back, and extra thick, impact and blast-resistant fabric covers the whole body, with multiple layers to decrease the risk of a suit pressure failure.
+* A wide-visored helmet covers the head to allow high visibility.
+
+#### Weapons
+
+* Primary - PEP gun\footnote{see page \pageref{pep}} (4 shot magazines of high-payload rounds), GEP (guided explosive projectile) gun (single shot, super-high-payload), ARC Caster (possibly)?
+* Secondary (pick 2) - All of these are wrist-mounted weapons and there is one per wrist
+	* micro-plasma-cannon
+	* laser
+	* wrist-rocket
+* A retractable wrist blade is standard on both wrists.
+
+#### Other Equipment
+
+* Jetpack, Liquid Oxygen Tank (for combustion and breath).
+
+### Chaplain
+
+## Outer Provinces
+
+## Middle Nations
