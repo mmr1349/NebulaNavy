@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using Mirror;
 
@@ -60,6 +58,7 @@ public class FpsController : NetworkBehaviour {
         base.OnStartLocalPlayer();
         CustomNetworkManager.networkManager.localPlayer = this.gameObject;
         CustomNetworkManager.networkManager.localPlayerNetID = netId;
+        FindObjectOfType<LoadOutController>(true).gameObject.SetActive(false);
     }
 
     void Start() {
@@ -247,16 +246,28 @@ public class FpsController : NetworkBehaviour {
         }
     }*/
 
-    
-       
+
+    [ClientCallback]
     private void OnDisable() {
         //When we are disabled start a timer to undisable
         /*if (isServer) {
             Invoke("ServerUndisablePlayer", 10f);
         }*/
         if (isLocalPlayer) {
+            uiController.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+    }
+
+    [ClientCallback]
+    private void OnEnable() {
+        if (isLocalPlayer) {
+            if (uiController) {
+                uiController.gameObject.SetActive(true);
+            }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -371,6 +382,5 @@ public class FpsController : NetworkBehaviour {
 
     public void SetName(string name) {
         gameObject.name = name;
-        //Color color = isLocalPlayer ? Color.white : Color.red;
     }
 }

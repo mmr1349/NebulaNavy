@@ -15,11 +15,6 @@ public class LoadOutController : NetworkBehaviour
     [SerializeField] private GameObject[] selectedItems = new GameObject[2];
     [SerializeField] private GameObject[] items;
 
-    public override void OnStartClient() {
-        base.OnStartClient();
-        gameObject.SetActive(false);
-    }
-
     public struct Loadout : NetworkMessage {
         public int item1Index;
         public int item2Index;
@@ -38,7 +33,16 @@ public class LoadOutController : NetworkBehaviour
         NetworkServer.SendToAll(msg);
     }
 
+    [Server]
+    public void ServerGainAuthority(NetworkConnection playerConnection) {
+        if (netIdentity.hasAuthority) {
+            netIdentity.RemoveClientAuthority();
+        }
+        netIdentity.AssignClientAuthority(playerConnection);
+    }
+
     public void SendRespawnCommand() {
+        Debug.Log("Sending respawn command to server");
         CmdRespawnPlayer(CustomNetworkManager.networkManager.localPlayerNetID);
         gameObject.SetActive(false);
     }
@@ -70,6 +74,7 @@ public class LoadOutController : NetworkBehaviour
 
 
     public void SelectItemToModify(int index) {
+        Debug.Log("Seleted item: " + index);
         CmdSelectItemToModify(index);
     }
 
@@ -85,6 +90,7 @@ public class LoadOutController : NetworkBehaviour
     }
 
     public void SelectItem(int index) {
+        Debug.Log("Selected an item to equip");
         CmdSelectItem(index);
     }
 

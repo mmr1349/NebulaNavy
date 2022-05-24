@@ -6,12 +6,12 @@ using Mirror;
 public class Health : NetworkBehaviour
 {
 
-    [SerializeField] private GameObject loadOutScreen;
+    [SerializeField] private LoadOutController loadOutScreen;
     [SyncVar(hook = nameof(HealthChanged))][SerializeField] private int healthPoints;
 
 
     private void Start() {
-        loadOutScreen = FindObjectOfType<LoadOutController>(true).gameObject;
+        loadOutScreen = FindObjectOfType<LoadOutController>(true);
     }
 
     public int GetHealthPoints() {
@@ -27,7 +27,7 @@ public class Health : NetworkBehaviour
     [Command]
     public void CmdSetHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
-        CmdKillPlayer();
+        ServerKillPlayer();
     }
 
     [Server]
@@ -60,15 +60,18 @@ public class Health : NetworkBehaviour
     public void ServerKillPlayer() {
         if (healthPoints <= 0) {
             //NetworkController.networkController.ServerKillPlayer(this.netId);
-            TargetOpenLoadoutScree(netIdentity.connectionToClient);
+            //loadOutScreen.ServerGainAuthority(netIdentity.connectionToClient);
+            //TargetOpenLoadoutScreen(netIdentity.connectionToClient);
             RpcKillPlayer();
+            GameController.gameController.TargetSetRespawnCounter(netIdentity.connectionToClient);
+            Invoke("ServerRespawnPlayer", GameController.gameController.respawnTime);
         }
     }
 
     [TargetRpc]
-    private void TargetOpenLoadoutScree(NetworkConnection target) {
+    private void TargetOpenLoadoutScreen(NetworkConnection target) {
         Debug.Log("we have been told to die and open up the loadout screen");
-        loadOutScreen.SetActive(true);
+        loadOutScreen.gameObject.SetActive(true);
     }
 
     [Server]
@@ -79,6 +82,20 @@ public class Health : NetworkBehaviour
     [Command]
     public void CmdHealPlater(int amount) {
         ServerHealPlayer(amount);
+    }
+
+    [Server]
+    private void ServerRespawnPlayer()
+    {
+        ServerSetHealthPoints(100);
+        GameController.gameController.ServerSetPlayerSpawnPoint(this.transform);
+        RpcRespawnPlayer();
+    }
+
+    [ClientRpc]
+    private void RpcRespawnPlayer()
+    {
+        this.gameObject.SetActive(true);
     }
 
     private void HealthChanged(int oldHealth, int newHealth) {
